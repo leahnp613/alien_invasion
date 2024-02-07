@@ -9,9 +9,8 @@ class AlienInvasion:
     def __init__(self):
         """Initialize the game, and create game resources."""
         pygame.init()
-
-        self.screen = pygame.display.set_mode((1200, 800))
-        pygame.display.set_caption("Alien Invasion")
+        self.clock = pygame.time.Clock()
+        self.settings = Settings()
 
 
         self.ship = Ship(self)
@@ -20,24 +19,56 @@ class AlienInvasion:
     def run_game(self):
         """Start the main loop for the game."""
         while True:
-            # Watch for keyboard and mouse events.
+            self._check_events()
+            self.ship.update()
+            self._update_screen()
+            self.clock.tick(60)
+            
+    
+
+    def _check_events(self):
+            #Respond to keypresses and mouse events from the player.
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    self._check_keydown_events(event)
+                elif event.type == pygame.KEYUP:
+                    self._check_keyup_events(event)
 
-            # Redraw the screen during each pass through the loop.
-            self.screen.fill(self.bg_color)
-            self.ship.blitme()
+    def _check_keydown_events(self, event):
+            #Responding to player keypresses.
+            if event.key == pygame.K_RIGHT:
+                 self.ship.moving_right = True
+            elif event.key == pygame.K_LEFT:
+                 self.ship.moving_left = True
+            elif event.key == pygame.K_q:
+                 sys.exit()
 
-            # Make the most recently drawn screen visible.
-            pygame.display.flip()
-            self.clock.tick(60)
-if_name_== '_main_':
+    def _check_keydown_events(self, event):
+            #Responding to player key releases.
+            if event.key == pygame.K_RIGHT:
+                 self.ship.moving_right = False
+            elif event.key == pygame.K_LEFT:
+                self.ship.moving_left = False
+
+    def _update_screen(self):
+         #Updating screen images and flipping to the new screen.
+         self.screen.fill(self.settings.bg_color)
+         self.ship.blitme()
+
+         pygame.display.flip()
+
+
+
+
+            
+if __name__ == '_main_':
     # Make a game instance, and run the game.
-ai = AlienInvasion()
-ai.run_game()
+    ai = AlienInvasion()
+    ai.run_game()
 
-def_init_(self):
+def __init__(self):
     # Initialize the game, and create game resources.
     pygame.init()
     pygame.display.set_caption("Alien Invasion")
