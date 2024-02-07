@@ -5,15 +5,17 @@ from settings import Settings
 from ship import Ship
 
 class AlienInvasion:
-    """Overall class to manage game assets and behavior."""
-    def __init__(self):
-        """Initialize the game, and create game resources."""
-        pygame.init()
-        self.clock = pygame.time.Clock()
-        self.settings = Settings()
+ def __init__(self):
+    # Initialize the game, and create game resources.
+    pygame.init()
+    self.clock = pygame.time.Clock()
+    self.settings = Settings()
 
+    self.screen = pygame.display.set_mode(
+        (self.settings.screen_width, self.settings.screen_height))
+    pygame.display.set_caption("Alien Invasion")
 
-        self.ship = Ship(self)
+    self.ship = Ship(self)
     
 
     def run_game(self):
@@ -68,13 +70,5 @@ if __name__ == '_main_':
     ai = AlienInvasion()
     ai.run_game()
 
-def __init__(self):
-    # Initialize the game, and create game resources.
-    pygame.init()
-    pygame.display.set_caption("Alien Invasion")
-    self.bg_color = (230, 230, 230)
-    self.clock = pygame.time.Clock()
-    self.settings = Settings()
-    self.screen = pygame.display.set_mode(
-        (self.settings.screen_width, self.settings.screen_height))
+
     
