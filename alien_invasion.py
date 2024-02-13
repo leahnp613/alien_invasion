@@ -3,9 +3,10 @@ import pygame
 
 from settings import Settings
 from ship import Ship
+from pygame.event import Event
 
 class AlienInvasion:
-    def __init__(self):
+    def __init__(self) -> None:
         # Initialize the game, and create game resources.
         pygame.init()
         self.clock = pygame.time.Clock()
@@ -18,7 +19,7 @@ class AlienInvasion:
         self.ship = Ship(self)
     
 
-    def run_game(self):
+    def run_game(self) -> None:
         """Start the main loop for the game."""
         while True:
             self._check_events()
@@ -28,7 +29,7 @@ class AlienInvasion:
             
     
 
-    def _check_events(self):
+    def _check_events(self) -> None:
             #Respond to keypresses and mouse events from the player.
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -36,7 +37,7 @@ class AlienInvasion:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RIGHT:
                          self.ship.moving_right = True
-                    elif event.key == pygame.L_LEFT:
+                    elif event.key == pygame.K_LEFT:
                          self.ship.moving_left = True
 
                 elif event.type == pygame.KEYUP:
@@ -47,7 +48,7 @@ class AlienInvasion:
                          #Move the ship to the right.
                         self.ship.rect.x += 1
 
-    def _check_keydown_events(self, event):
+    def _check_keydown_events(self, event: pygame.event.Event) -> None:
             #Responding to player keypresses.
             if event.key == pygame.K_RIGHT:
                  self.ship.moving_right = True
@@ -56,10 +57,10 @@ class AlienInvasion:
             elif event.key == pygame.K_q:
                  sys.exit()
 
-    def _check_keyup_events(self, event):
+    def _check_keyup_events(self, event: pygame.event.Event) -> None:
         pass
 
-    def _update_screen(self):
+    def _update_screen(self) -> None:
          #Updating screen images and flipping to the new screen.
          self.screen.fill(self.settings.bg_color)
          self.ship.blitme()
